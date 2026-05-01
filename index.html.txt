@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maria Érica | Cloud & IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --card: #161d2e;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(255,255,255,0.06);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glowing orbs */
+    body::after {
+      content: '';
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+      top: -200px;
+      right: -200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb2 {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    h1 .name-line {
+      display: block;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: #fff;
+    }
+
+    /* ── SOBRE ── */
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .sobre-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #94a3b8;
+    }
+
+    .sobre-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateX(4px);
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      width: 42px;
+      text-align: center;
+    }
+
+    .stat-info strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .stat-info span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── HABILIDADES ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .skill-card.cloud  { --card-accent: #00d4ff; }
+    .skill-card.ai     { --card-accent: #7c3aed; }
+    .skill-card.front  { --card-accent: #10b981; }
+    .skill-card.eng    { --card-accent: #f59e0b; }
+
+    .skill-emoji { font-size: 2rem; margin-bottom: 0.8rem; }
+
+    .skill-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FORMAÇÃO ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      flex: 1;
+      transition: border-color 0.2s;
+    }
+    .timeline-content:hover { border-color: rgba(0,212,255,0.25); }
+
+    .timeline-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content .inst {
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content .period {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── CONTATO ── */
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
+    }
+
+    .contact-box h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .sobre-grid { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      .contact-box { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">ME.dev</div>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#formacao">Formação</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Disponível para oportunidades</div>
+    <h1>
+      <span class="name-line">Maria Érica</span>
+      <span class="name-line">Alves de Oliveira</span>
+    </h1>
+    <p class="hero-sub">
+      Estudante de Engenharia de Software focada em Cloud Computing & Inteligência Artificial. 
+      Construindo soluções na AWS e aprendendo a arquitetar o futuro.
+    </p>
+    <div class="hero-cta">
+      <a href="#habilidades" class="btn btn-primary">Ver habilidades</a>
+      <a href="#contato" class="btn btn-ghost">Entre em contato</a>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="section-label">// sobre mim</div>
+    <h2 class="section-title">Quem sou eu</h2>
+    <div class="sobre-grid">
+      <div class="sobre-text">
+        <p>Sou estudante de <strong style="color:#fff">Engenharia de Software</strong> apaixonada por tecnologia e inovação. 
+        Atualmente me aprofundo em <strong style="color:#fff">Cloud Computing e Inteligência Artificial</strong> 
+        através do programa da Escola da Nuvem em parceria com a AWS.</p>
+        <br/>
+        <p>Tenho experiência em desenvolvimento Frontend e busco unir o melhor dos dois mundos: 
+        interfaces modernas hospedadas em infraestrutura de nuvem escalável.</p>
+      </div>
+      <div class="sobre-stats">
+        <div class="stat-card">
+          <div class="stat-icon">☁️</div>
+          <div class="stat-info">
+            <strong>Cloud Computing</strong>
+            <span>AWS · Escola da Nuvem</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-info">
+            <strong>Inteligência Artificial</strong>
+            <span>Aplicações práticas com AWS</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💻</div>
+          <div class="stat-info">
+            <strong>Frontend Development</strong>
+            <span>HTML · CSS · JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <div class="section-label">// stack</div>
+    <h2 class="section-title">Habilidades</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card cloud">
+        <div class="skill-emoji">☁️</div>
+        <h3>Cloud Computing</h3>
+        <p>Infraestrutura na nuvem com serviços AWS, arquitetura escalável e boas práticas de segurança.</p>
+        <div class="skill-tags">
+          <span class="tag">AWS S3</span>
+          <span class="tag">EC2</span>
+          <span class="tag">IAM</span>
+          <span class="tag">CloudFront</span>
+        </div>
+      </div>
+
+      <div class="skill-card ai">
+        <div class="skill-emoji">🤖</div>
+        <h3>Inteligência Artificial</h3>
+        <p>Fundamentos de IA aplicados à nuvem, serviços cognitivos e modelos de linguagem na AWS.</p>
+        <div class="skill-tags">
+          <span class="tag">AWS AI Services</span>
+          <span class="tag">Machine Learning</span>
+        </div>
+      </div>
+
+      <div class="skill-card front">
+        <div class="skill-emoji">🎨</div>
+        <h3>Frontend Development</h3>
+        <p>Criação de interfaces modernas, responsivas e acessíveis com foco em experiência do usuário.</p>
+        <div class="skill-tags">
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-card eng">
+        <div class="skill-emoji">⚙️</div>
+        <h3>Engenharia de Software</h3>
+        <p>Fundamentos de engenharia, lógica de programação, estruturas de dados e metodologias ágeis.</p>
+        <div class="skill-tags">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Agile</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMAÇÃO -->
+  <section id="formacao">
+    <div class="section-label">// educação</div>
+    <h2 class="section-title">Formação</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-content">
+          <h3>Engenharia de Software</h3>
+          <div class="inst">Cursando</div>
+          <div class="period">Em andamento</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">☁️</div>
+        <div class="timeline-content">
+          <h3>Cloud Computing & Inteligência Artificial</h3>
+          <div class="inst">Escola da Nuvem · Parceria AWS</div>
+          <div class="period">Em andamento · 2024</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🎨</div>
+        <div class="timeline-content">
+          <h3>Desenvolvimento Frontend</h3>
+          <div class="inst">Curso concluído</div>
+          <div class="period">HTML · CSS · JavaScript</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="section-label">// contato</div>
+    <h2 class="section-title">Vamos conversar?</h2>
+    <div class="contact-box">
+      <h3>Aberta a oportunidades 🚀</h3>
+      <p>Estágio, projetos ou colaborações — adoraria me conectar com você!</p>
+      <div class="contact-links">
+        <a href="mailto:seuemail@email.com" class="btn btn-primary">✉️ Enviar e-mail</a>
+        <a href="https://linkedin.com/in/seuperfil" target="_blank" class="btn btn-ghost">💼 LinkedIn</a>
+        <a href="https://github.com/seuusuario" target="_blank" class="btn btn-ghost">🐙 GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Desenvolvido por Maria Érica Alves de Oliveira · 2024</p>
+  </footer>
+
+</body>
+</html>
