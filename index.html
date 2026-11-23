@@ -1,24 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maria Érica | Cloud & IA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio de Maria Érica Alves de Oliveira. Engenharia de Software, Backend e Cloud Computing com AWS.">
+  <title>Maria Érica | Backend & Cloud AWS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0a0e1a;
-      --surface: #111827;
-      --card: #161d2e;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --accent3: #10b981;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --border: rgba(255,255,255,0.06);
+      --bg: #080b16;
+      --surface: #101629;
+      --card: #141c32;
+      --purple: #a78bfa;
+      --purple-dark: #7c3aed;
+      --blue: #60a5fa;
+      --text: #f1f5f9;
+      --muted: #9ca9c0;
+      --border: rgba(167,139,250,.15);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     html { scroll-behavior: smooth; }
 
@@ -26,648 +36,752 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* Background grid */
+    a { color: inherit; }
+
     body::before {
-      content: '';
+      content: "";
       position: fixed;
       inset: 0;
+      z-index: -1;
+      pointer-events: none;
       background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
+        linear-gradient(rgba(167,139,250,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(167,139,250,.025) 1px, transparent 1px);
+      background-size: 55px 55px;
     }
 
-    /* Glowing orbs */
-    body::after {
-      content: '';
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
-      top: -200px;
-      right: -200px;
-      pointer-events: none;
-      z-index: 0;
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
     }
 
-    .orb2 {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
-      bottom: -100px;
-      left: -100px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── NAV ── */
+    /* MENU */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: sticky;
+      top: 0;
       z-index: 100;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10,14,26,0.85);
-      backdrop-filter: blur(16px);
+      background: rgba(8,11,22,.92);
+      backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
+    .nav-content {
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      list-style: none;
+    }
+
     .nav-links a {
       color: var(--muted);
+      font-size: .85rem;
       text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      transition: .3s;
     }
-    .nav-links a:hover { color: var(--accent); }
 
-    /* ── HERO ── */
+    .nav-links a:hover { color: var(--purple); }
+
+    /* APRESENTAÇÃO */
     .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
+      min-height: 85vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 2rem 4rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero-tag {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(0,212,255,0.3);
-      padding: 0.4rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 2rem;
-      width: fit-content;
-      animation: fadeUp 0.6s ease both;
+      padding: 90px 0;
     }
 
-    .hero-tag::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      align-items: center;
+      gap: 55px;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.8); }
+    .status {
+      display: inline-block;
+      padding: 7px 15px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      color: var(--purple);
+      font-size: .8rem;
+      margin-bottom: 25px;
     }
 
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      animation: fadeUp 0.6s 0.1s ease both;
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
     }
 
-    h1 .name-line {
-      display: block;
-      background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .gradient {
+      background: linear-gradient(110deg, #c4b5fd, #60a5fa);
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       background-clip: text;
+      color: transparent;
     }
 
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 1.1rem;
+    .hero-description {
       color: var(--muted);
-      max-width: 500px;
-      line-height: 1.7;
-      animation: fadeUp 0.6s 0.2s ease both;
+      font-size: 1.05rem;
+      max-width: 580px;
     }
 
-    .hero-cta {
-      margin-top: 2.5rem;
+    .hero-buttons {
       display: flex;
-      gap: 1rem;
       flex-wrap: wrap;
-      animation: fadeUp 0.6s 0.3s ease both;
+      gap: 13px;
+      margin-top: 30px;
     }
 
     .btn {
-      padding: 0.8rem 1.8rem;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 400;
-      cursor: pointer;
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 9px;
       text-decoration: none;
-      transition: all 0.2s;
-      letter-spacing: 0.02em;
+      font-weight: 600;
+      font-size: .9rem;
+      transition: .3s;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: #000;
-      border: none;
-    }
-    .btn-primary:hover {
-      background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+      background: linear-gradient(120deg, #7c3aed, #6366f1);
+      color: white;
     }
 
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
+    .btn-outline {
       border: 1px solid var(--border);
-    }
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
+      color: var(--text);
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(124,58,237,.2);
     }
 
-    /* ── SECTIONS ── */
+    .photo-frame {
+      width: 290px;
+      height: 340px;
+      max-width: 100%;
+      margin: auto;
+      border: 2px solid var(--purple-dark);
+      border-radius: 25px;
+      padding: 8px;
+      background: linear-gradient(145deg, #25164a, #101629);
+      box-shadow: 0 0 45px rgba(124,58,237,.2);
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    /* SEÇÕES */
     section {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
+      padding: 85px 0;
+      scroll-margin-top: 70px;
     }
 
     .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
+      color: var(--purple);
+      font-size: .8rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 10px;
     }
 
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 3rem;
-      color: #fff;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 35px;
     }
 
-    /* ── SOBRE ── */
-    .sobre-grid {
+    .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 35px;
     }
 
-    .sobre-text {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #94a3b8;
-    }
-
-    .sobre-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .stat-card:hover {
-      border-color: rgba(0,212,255,0.3);
-      transform: translateX(4px);
-    }
-
-    .stat-icon {
-      font-size: 1.5rem;
-      width: 42px;
-      text-align: center;
-    }
-
-    .stat-info strong {
-      display: block;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #fff;
-    }
-
-    .stat-info span {
-      font-size: 0.8rem;
+    .about-text {
       color: var(--muted);
+      font-size: 1rem;
     }
 
-    /* ── HABILIDADES ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
+    .about-text p { margin-bottom: 18px; }
 
-    .skill-card {
+    .about-card, .card, .timeline-content {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      border-radius: 15px;
+      padding: 23px;
+      transition: .3s;
     }
 
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--card-accent, var(--accent));
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
+    .about-card { margin-bottom: 13px; }
 
-    .skill-card:hover::before { transform: scaleX(1); }
-    .skill-card:hover {
-      border-color: rgba(255,255,255,0.12);
+    .about-card:hover, .card:hover, .timeline-content:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border-color: var(--purple-dark);
     }
 
-    .skill-card.cloud  { --card-accent: #00d4ff; }
-    .skill-card.ai     { --card-accent: #7c3aed; }
-    .skill-card.front  { --card-accent: #10b981; }
-    .skill-card.eng    { --card-accent: #f59e0b; }
-
-    .skill-emoji { font-size: 2rem; margin-bottom: 0.8rem; }
-
-    .skill-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
+    .about-card strong {
+      display: block;
+      color: white;
+      margin-bottom: 3px;
     }
 
-    .skill-card p {
-      font-size: 0.85rem;
+    .about-card span {
       color: var(--muted);
-      line-height: 1.6;
+      font-size: .85rem;
     }
 
-    .skill-tags {
+    /* HABILIDADES */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 1rem;
+      gap: 8px;
+      margin-top: 17px;
     }
 
     .tag {
-      font-size: 0.7rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 100px;
-      background: rgba(255,255,255,0.05);
-      color: var(--muted);
-      letter-spacing: 0.05em;
+      padding: 5px 11px;
+      border-radius: 30px;
+      background: rgba(167,139,250,.1);
+      border: 1px solid var(--border);
+      color: #c4b5fd;
+      font-size: .75rem;
     }
 
-    /* ── FORMAÇÃO ── */
+    /* PROJETOS E CERTIFICAÇÕES */
+    .project-card, .cert-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-card .btn, .cert-card .btn {
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .cert-card {
+      position: relative;
+    }
+
+    .cert-card .status-label {
+      color: #86efac;
+      font-size: .78rem;
+      font-weight: 600;
+    }
+
+    .cert-card .preparing {
+      color: #c4b5fd;
+    }
+
+    /* FORMAÇÃO */
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      position: relative;
+      gap: 17px;
     }
 
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 18px;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }
+    .timeline-content h3 { margin-bottom: 5px; }
 
-    .timeline-item {
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
-    }
-
-    .timeline-dot {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--card);
-      border: 2px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .timeline-content {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      flex: 1;
-      transition: border-color 0.2s;
-    }
-    .timeline-content:hover { border-color: rgba(0,212,255,0.25); }
-
-    .timeline-content h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.3rem;
-    }
-
-    .timeline-content .inst {
-      font-size: 0.82rem;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
+    .timeline-content .institution {
+      color: var(--purple);
+      font-size: .9rem;
     }
 
     .timeline-content .period {
-      font-size: 0.78rem;
       color: var(--muted);
+      font-size: .8rem;
     }
 
-    /* ── CONTATO ── */
+    /* CONTATO */
     .contact-box {
-      background: var(--card);
+      background: linear-gradient(135deg, #171b36, #111629);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3rem;
+      padding: 45px 25px;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-box::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 60%);
-    }
-
-    .contact-box h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.8rem;
-      position: relative;
+      border-radius: 20px;
     }
 
     .contact-box p {
       color: var(--muted);
-      margin-bottom: 2rem;
-      position: relative;
+      margin: 15px auto 25px;
     }
 
     .contact-links {
       display: flex;
-      gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
-      position: relative;
+      gap: 12px;
     }
 
-    /* ── FOOTER ── */
     footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem;
-      color: var(--muted);
-      font-size: 0.8rem;
       border-top: 1px solid var(--border);
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .sobre-grid { grid-template-columns: 1fr; }
-      nav .nav-links { display: none; }
-      .contact-box { padding: 2rem 1.5rem; }
+    /* CELULAR */
+    @media(max-width: 750px) {
+      .nav-content {
+        flex-direction: column;
+        padding: 13px 0;
+      }
+
+      .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+      }
+
+      .nav-links a { font-size: .75rem; }
+
+      .hero { min-height: auto; padding: 65px 0; }
+
+      .hero-content, .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content { text-align: center; }
+
+      .hero-description { margin: auto; }
+
+      .hero-buttons { justify-content: center; }
+
+      .photo-frame {
+        width: 230px;
+        height: 270px;
+        grid-row: 1;
+      }
+
+      .cards-grid { grid-template-columns: 1fr; }
+
+      section { padding: 60px 0; }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <div class="orb2"></div>
-
-  <!-- NAV -->
+  <!-- MENU -->
   <nav>
-    <div class="nav-logo">ME.dev</div>
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#habilidades">Habilidades</a></li>
-      <li><a href="#formacao">Formação</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
+    <div class="container nav-content">
+      <a class="logo" href="#inicio">ME.dev</a>
+
+      <ul class="nav-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#habilidades">Tecnologias</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#certificacoes">Certificações</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-tag">Disponível para oportunidades</div>
-    <h1>
-      <span class="name-line">Maria Érica</span>
-      <span class="name-line">Alves de Oliveira</span>
-    </h1>
-    <p class="hero-sub">
-      Estudante de Engenharia de Software focada em Cloud Computing & Inteligência Artificial. 
-      Construindo soluções na AWS e aprendendo a arquitetar o futuro.
-    </p>
-    <div class="hero-cta">
-      <a href="#habilidades" class="btn btn-primary">Ver habilidades</a>
-      <a href="#contato" class="btn btn-ghost">Entre em contato</a>
+  <!-- INÍCIO -->
+  <header class="hero container" id="inicio">
+    <div class="hero-content">
+
+      <div>
+        <span class="status">● Em busca de oportunidades em tecnologia</span>
+
+        <h1>
+          Olá, sou<br>
+          <span class="gradient">Maria Érica</span>
+        </h1>
+
+        <p class="hero-description">
+          Estudante de Engenharia de Software, com foco em
+          Desenvolvimento Backend e Computação em Nuvem.
+          Construindo minha trajetória com Java, Python e AWS,
+          sempre buscando aprender e desenvolver soluções.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projetos" class="btn btn-primary">Conheça meus projetos</a>
+          <a href="#contato" class="btn btn-outline">Entre em contato</a>
+        </div>
+      </div>
+
+      <div class="photo-frame">
+        <!-- Coloque sua foto no repositório com o nome foto-erica.jpg -->
+        <img src="foto-erica.jpg" alt="Foto de Maria Érica"
+             onerror="this.style.display='none'">
+      </div>
+
     </div>
-  </div>
+  </header>
 
   <!-- SOBRE -->
   <section id="sobre">
-    <div class="section-label">// sobre mim</div>
-    <h2 class="section-title">Quem sou eu</h2>
-    <div class="sobre-grid">
-      <div class="sobre-text">
-        <p>Sou estudante de <strong style="color:#fff">Engenharia de Software</strong> apaixonada por tecnologia e inovação. 
-        Atualmente me aprofundo em <strong style="color:#fff">Cloud Computing e Inteligência Artificial</strong> 
-        através do programa da Escola da Nuvem em parceria com a AWS.</p>
-        <br/>
-        <p>Tenho experiência em desenvolvimento Frontend e busco unir o melhor dos dois mundos: 
-        interfaces modernas hospedadas em infraestrutura de nuvem escalável.</p>
-      </div>
-      <div class="sobre-stats">
-        <div class="stat-card">
-          <div class="stat-icon">☁️</div>
-          <div class="stat-info">
-            <strong>Cloud Computing</strong>
-            <span>AWS · Escola da Nuvem</span>
-          </div>
+    <div class="container">
+      <div class="section-label">// sobre mim</div>
+      <h2 class="section-title">Minha trajetória</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Sou estudante de <strong style="color:white">Engenharia de Software
+            na Anhanguera</strong>, com interesse em desenvolvimento de
+            software, Backend e tecnologias de computação em nuvem.
+          </p>
+
+          <p>
+            Concluí minha formação em Computação em Nuvem e Inteligência
+            Artificial pela Escola da Nuvem, em parceria com a AWS,
+            e conquistei a certificação AWS Certified Cloud Practitioner.
+          </p>
+
+          <p>
+            Atualmente, estou aprofundando meus conhecimentos em
+            <strong style="color:white">AWS Solutions Architect Associate
+            (SAA-C03)</strong> e desenvolvendo minha base em programação,
+            especialmente Java e Python.
+          </p>
+
+          <p>
+            Busco minha primeira oportunidade profissional na área de
+            tecnologia, onde possa aprender, colaborar e evoluir
+            continuamente.
+          </p>
         </div>
-        <div class="stat-card">
-          <div class="stat-icon">🤖</div>
-          <div class="stat-info">
-            <strong>Inteligência Artificial</strong>
-            <span>Aplicações práticas com AWS</span>
+
+        <div>
+          <div class="about-card">
+            <strong>🎓 Engenharia de Software</strong>
+            <span>Graduação em andamento</span>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon">💻</div>
-          <div class="stat-info">
-            <strong>Frontend Development</strong>
-            <span>HTML · CSS · JavaScript</span>
+
+          <div class="about-card">
+            <strong>☁️ Computação em Nuvem</strong>
+            <span>Formação e certificação AWS</span>
+          </div>
+
+          <div class="about-card">
+            <strong>💻 Desenvolvimento Backend</strong>
+            <span>Estudos em Java e Python</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- HABILIDADES -->
+  <!-- TECNOLOGIAS -->
   <section id="habilidades">
-    <div class="section-label">// stack</div>
-    <h2 class="section-title">Habilidades</h2>
-    <div class="skills-grid">
+    <div class="container">
+      <div class="section-label">// tecnologias</div>
+      <h2 class="section-title">Conhecimentos e estudos</h2>
 
-      <div class="skill-card cloud">
-        <div class="skill-emoji">☁️</div>
-        <h3>Cloud Computing</h3>
-        <p>Infraestrutura na nuvem com serviços AWS, arquitetura escalável e boas práticas de segurança.</p>
-        <div class="skill-tags">
-          <span class="tag">AWS S3</span>
-          <span class="tag">EC2</span>
-          <span class="tag">IAM</span>
-          <span class="tag">CloudFront</span>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-icon">☁️</div>
+          <h3>Cloud Computing | AWS</h3>
+          <p>
+            Estudos em infraestrutura, arquitetura de nuvem,
+            segurança e serviços da Amazon Web Services.
+          </p>
+          <div class="tags">
+            <span class="tag">EC2</span>
+            <span class="tag">S3</span>
+            <span class="tag">IAM</span>
+            <span class="tag">VPC</span>
+            <span class="tag">CloudFront</span>
+            <span class="tag">RDS</span>
+            <span class="tag">Auto Scaling</span>
+          </div>
         </div>
-      </div>
 
-      <div class="skill-card ai">
-        <div class="skill-emoji">🤖</div>
-        <h3>Inteligência Artificial</h3>
-        <p>Fundamentos de IA aplicados à nuvem, serviços cognitivos e modelos de linguagem na AWS.</p>
-        <div class="skill-tags">
-          <span class="tag">AWS AI Services</span>
-          <span class="tag">Machine Learning</span>
+        <div class="card">
+          <div class="card-icon">⚙️</div>
+          <h3>Backend Development</h3>
+          <p>
+            Desenvolvendo fundamentos de lógica de programação
+            e conhecimentos em linguagens para desenvolvimento Backend.
+          </p>
+          <div class="tags">
+            <span class="tag">Java</span>
+            <span class="tag">Python</span>
+            <span class="tag">Lógica de programação</span>
+          </div>
         </div>
-      </div>
 
-      <div class="skill-card front">
-        <div class="skill-emoji">🎨</div>
-        <h3>Frontend Development</h3>
-        <p>Criação de interfaces modernas, responsivas e acessíveis com foco em experiência do usuário.</p>
-        <div class="skill-tags">
-          <span class="tag">HTML5</span>
-          <span class="tag">CSS3</span>
-          <span class="tag">JavaScript</span>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Frontend Development</h3>
+          <p>
+            Conhecimentos em construção de páginas e interfaces
+            web responsivas.
+          </p>
+          <div class="tags">
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">React</span>
+          </div>
         </div>
-      </div>
 
-      <div class="skill-card eng">
-        <div class="skill-emoji">⚙️</div>
-        <h3>Engenharia de Software</h3>
-        <p>Fundamentos de engenharia, lógica de programação, estruturas de dados e metodologias ágeis.</p>
-        <div class="skill-tags">
-          <span class="tag">Git</span>
-          <span class="tag">GitHub</span>
-          <span class="tag">Agile</span>
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <h3>Ferramentas e práticas</h3>
+          <p>
+            Utilização de ferramentas de desenvolvimento,
+            versionamento e organização de projetos.
+          </p>
+          <div class="tags">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">VS Code</span>
+            <span class="tag">Metodologias Ágeis</span>
+          </div>
         </div>
-      </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos">
+    <div class="container">
+      <div class="section-label">// prática</div>
+      <h2 class="section-title">Projetos práticos</h2>
+
+      <div class="cards-grid">
+
+        <div class="card project-card">
+          <div class="card-icon">🌐</div>
+          <h3>Portfólio pessoal</h3>
+          <p>
+            Desenvolvimento e publicação de um site pessoal
+            utilizando HTML, CSS e GitHub Pages.
+          </p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">GitHub Pages</span>
+          </div>
+          <a href="https://github.com/erica25-code/meu-site"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-outline">Ver repositório ↗</a>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-icon">☁️</div>
+          <h3>Laboratório AWS VPC</h3>
+          <p>
+            Projeto prático de estudos envolvendo VPC,
+            sub-redes e tabelas de rotas na AWS.
+          </p>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">VPC</span>
+            <span class="tag">Networking</span>
+          </div>
+          <a href="https://github.com/erica25-code"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-outline">Ver projetos no GitHub ↗</a>
+        </div>
+
+        <div class="card project-card">
+          <div class="card-icon">🚀</div>
+          <h3>EC2 e Auto Scaling</h3>
+          <p>
+            Laboratório de estudos com criação de AMI e
+            configuração de Auto Scaling utilizando AWS CLI.
+          </p>
+          <div class="tags">
+            <span class="tag">EC2</span>
+            <span class="tag">AMI</span>
+            <span class="tag">Auto Scaling</span>
+            <span class="tag">AWS CLI</span>
+          </div>
+          <a href="https://github.com/erica25-code"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-outline">Ver projetos no GitHub ↗</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICAÇÕES -->
+  <section id="certificacoes">
+    <div class="container">
+      <div class="section-label">// conquistas e aprendizado</div>
+      <h2 class="section-title">Certificações e estudos AWS</h2>
+
+      <div class="cards-grid">
+
+        <div class="card cert-card">
+          <div class="card-icon">🏆</div>
+          <span class="status-label">✓ Certificação conquistada</span>
+          <h3>AWS Certified Cloud Practitioner</h3>
+          <p>
+            Certificação da Amazon Web Services que valida
+            conhecimentos fundamentais sobre computação em nuvem,
+            serviços AWS, segurança e modelos de cobrança.
+          </p>
+          <div class="tags">
+            <span class="tag">AWS</span>
+            <span class="tag">Cloud Computing</span>
+            <span class="tag">CLF-C02</span>
+          </div>
+          <a href="https://www.credly.com/"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-outline">Consultar Credly ↗</a>
+        </div>
+
+        <div class="card cert-card">
+          <div class="card-icon">📚</div>
+          <span class="status-label preparing">● Em preparação</span>
+          <h3>AWS Solutions Architect – Associate</h3>
+          <p>
+            Preparação para a certificação SAA-C03, com estudos
+            sobre arquiteturas seguras, resilientes, de alto
+            desempenho e otimizadas em custos.
+          </p>
+          <div class="tags">
+            <span class="tag">SAA-C03</span>
+            <span class="tag">Arquitetura AWS</span>
+            <span class="tag">Cloud</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <!-- FORMAÇÃO -->
   <section id="formacao">
-    <div class="section-label">// educação</div>
-    <h2 class="section-title">Formação</h2>
-    <div class="timeline">
+    <div class="container">
+      <div class="section-label">// educação</div>
+      <h2 class="section-title">Formação acadêmica e cursos</h2>
 
-      <div class="timeline-item">
-        <div class="timeline-dot">🎓</div>
+      <div class="timeline">
+
         <div class="timeline-content">
           <h3>Engenharia de Software</h3>
-          <div class="inst">Cursando</div>
+          <div class="institution">Anhanguera</div>
+          <div class="period">Janeiro/2025 – Julho/2028 · Em andamento</div>
+        </div>
+
+        <div class="timeline-content">
+          <h3>Computação em Nuvem + Inteligência Artificial</h3>
+          <div class="institution">Escola da Nuvem · Parceria AWS</div>
+          <div class="period">Formação concluída</div>
+        </div>
+
+        <div class="timeline-content">
+          <h3>Trilha de Extensão – Arquiteto (Solutions Architect)</h3>
+          <div class="institution">Escola da Nuvem</div>
           <div class="period">Em andamento</div>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot">☁️</div>
         <div class="timeline-content">
-          <h3>Cloud Computing & Inteligência Artificial</h3>
-          <div class="inst">Escola da Nuvem · Parceria AWS</div>
-          <div class="period">Em andamento · 2024</div>
+          <h3>Desenvolvedor Front-end React – 200 horas</h3>
+          <div class="institution">SENAI</div>
+          <div class="period">Curso concluído</div>
         </div>
-      </div>
 
-      <div class="timeline-item">
-        <div class="timeline-dot">🎨</div>
         <div class="timeline-content">
-          <h3>Desenvolvimento Frontend</h3>
-          <div class="inst">Curso concluído</div>
-          <div class="period">HTML · CSS · JavaScript</div>
+          <h3>Lógica de Programação</h3>
+          <div class="institution">Udemy</div>
+          <div class="period">Curso concluído</div>
         </div>
-      </div>
 
+      </div>
     </div>
   </section>
 
   <!-- CONTATO -->
   <section id="contato">
-    <div class="section-label">// contato</div>
-    <h2 class="section-title">Vamos conversar?</h2>
-    <div class="contact-box">
-      <h3>Aberta a oportunidades 🚀</h3>
-      <p>Estágio, projetos ou colaborações — adoraria me conectar com você!</p>
-      <div class="contact-links">
-        <a href="mailto:seuemail@email.com" class="btn btn-primary">✉️ Enviar e-mail</a>
-        <a href="https://linkedin.com/in/seuperfil" target="_blank" class="btn btn-ghost">💼 LinkedIn</a>
-        <a href="https://github.com/seuusuario" target="_blank" class="btn btn-ghost">🐙 GitHub</a>
+    <div class="container">
+      <div class="section-label">// contato</div>
+      <h2 class="section-title">Vamos nos conectar?</h2>
+
+      <div class="contact-box">
+        <h2>Construindo meu futuro na tecnologia. 💜</h2>
+        <p>
+          Estou aberta a oportunidades de estágio, desenvolvimento
+          profissional, projetos e conexões na área de tecnologia.
+        </p>
+
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/erica-alves-cloud/"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary">LinkedIn ↗</a>
+
+          <a href="https://github.com/erica25-code"
+             target="_blank" rel="noopener noreferrer"
+             class="btn btn-outline">GitHub ↗</a>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>Desenvolvido por Maria Érica Alves de Oliveira · 2024</p>
+    <div class="container">
+      <p>Desenvolvido por Maria Érica Alves de Oliveira</p>
+      <p>© 2026 · Todos os direitos reservados.</p>
+    </div>
   </footer>
 
 </body>
